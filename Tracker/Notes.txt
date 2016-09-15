@@ -1,0 +1,3 @@
+EF Migrations Commands
+Add-Migration MyFirstMigration -Context TrackerUserContext
+Update-Database -Context TrackerUserContext
