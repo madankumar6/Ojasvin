@@ -18,7 +18,7 @@ namespace Tracker.Web.Controllers
         }
         public IActionResult Index()
         {
-            var data = tcontext.TempDatas.ToList();
+            //var data = tcontext.TempDatas.ToList();
 
             return View();
         }
