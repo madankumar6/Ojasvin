@@ -14,6 +14,9 @@ using Tracker.Web.Data;
 using Tracker.Web.Models;
 using Tracker.Web.Services;
 using Tracker.DAL;
+using Tracker.Entities.Identity;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
 
 namespace Tracker.Web
 {
@@ -47,14 +50,23 @@ namespace Tracker.Web
             // Add framework services.
             services.AddApplicationInsightsTelemetry(Configuration);
            
-            services.AddDbContext<TrackerUserContext>(options =>
+            services.AddDbContext<UserContext>(options =>
                 options.UseSqlServer(Configuration["ConnectionStrings:Tracker"], b => b.MigrationsAssembly("Tracker.DAL")));
 
-            services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>()
+            services.AddIdentity<User, Role>(config =>
+            {
+                config.User.RequireUniqueEmail = true;
+                config.Password.RequiredLength = 3;
+                config.Cookies.ApplicationCookie.LoginPath = "Account/Login/";
+            })
+                .AddEntityFrameworkStores<UserContext>()
                 .AddDefaultTokenProviders();
 
-            services.AddMvc();
+            services.AddMvc(config =>
+            {
+                var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+                config.Filters.Add(new AuthorizeFilter(policy));
+            });
 
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();

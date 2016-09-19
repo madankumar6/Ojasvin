@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace Tracker.Entities
+namespace Tracker.Entities.Identity
 {
     public class Address
     {
+        public Guid AddressId { get; set; } = Guid.NewGuid();
         public string AddressLine1 { get; set; }
         public string AddressLine2 { get; set; }
         public string AddressLine3 { get; set; }
@@ -18,6 +16,5 @@ namespace Tracker.Entities
 
         public string UserId { get; set; }
         public User User { get; set; }
-
     }
 }

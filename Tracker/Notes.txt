@@ -1,3 +1,18 @@
 EF Migrations Commands
-Add-Migration MyFirstMigration -Context TrackerUserContext
-Update-Database -Context TrackerUserContext
+Add-Migration MyFirstMigration -Context UserContext
+Update-Database -Context UserContext
+
+Database.SetInitializer(new DatabaseSeeder());
+DatabaseContext c = new DatabaseContext();
+c.Database.Initialize(true);
+
+
+ASP.Net Identity
+IUser
+IUserStore
+UserManager<>
+SignInManager<>
+
+IdentityUser
+UserStore<IdentityUser>
+IdentityDBContext<IdentityUser>

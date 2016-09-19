@@ -10,9 +10,9 @@ namespace Tracker.Web.Controllers
 {
     public class HomeController : Controller
     {
-        TrackerUserContext tcontext;
+        UserContext tcontext;
 
-        public HomeController(TrackerUserContext context)
+        public HomeController(UserContext context)
         {
             tcontext = context;
         }

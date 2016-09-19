@@ -48,7 +48,11 @@
       "type": "build"
     },
     "Tracker.DAL": "1.0.0-*",
-    "Tracker.Entities": "1.0.0-*"
+    "Tracker.Entities": "1.0.0-*",
+    "Microsoft.AspNetCore.Authorization": "1.0.0",
+    "Microsoft.AspNetCore.Mvc.Core": "1.0.1",
+    "BundlerMinifier.Core": "2.2.281",
+    "Microsoft.AspNetCore.Identity": "1.0.0"
   },
 
   "tools": {
@@ -100,3 +104,4 @@
     "postpublish": [ "dotnet publish-iis --publish-folder %publish:OutputPath% --framework %publish:FullTargetFramework%" ]
   }
 }
+ 
