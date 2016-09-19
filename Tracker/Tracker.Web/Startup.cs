@@ -49,24 +49,23 @@ namespace Tracker.Web
         {
             // Add framework services.
             services.AddApplicationInsightsTelemetry(Configuration);
-           
-            services.AddDbContext<UserContext>(options =>
-                options.UseSqlServer(Configuration["ConnectionStrings:Tracker"], b => b.MigrationsAssembly("Tracker.DAL")));
-
-            services.AddIdentity<User, Role>(config =>
-            {
-                config.User.RequireUniqueEmail = true;
-                config.Password.RequiredLength = 3;
-                config.Cookies.ApplicationCookie.LoginPath = "Account/Login/";
-            })
-                .AddEntityFrameworkStores<UserContext>()
-                .AddDefaultTokenProviders();
 
             services.AddMvc(config =>
             {
                 var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
                 config.Filters.Add(new AuthorizeFilter(policy));
             });
+
+            services.AddDbContext<UserContext>(options =>
+                options.UseSqlServer(Configuration["ConnectionStrings:TrackerOffice"], b => b.MigrationsAssembly("Tracker.DAL")));
+
+            services.AddIdentity<User, Role>(config =>
+            {
+                config.User.RequireUniqueEmail = true;
+                config.Password.RequiredLength = 3;
+                config.Cookies.ApplicationCookie.LoginPath = "/Account/Login/";
+            })
+                .AddEntityFrameworkStores<UserContext>();
 
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
@@ -93,6 +92,8 @@ namespace Tracker.Web
             }
 
             app.UseApplicationInsightsExceptionTelemetry();
+
+            app.UseFileServer();
 
             app.UseStaticFiles();
 

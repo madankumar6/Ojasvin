@@ -1,8 +1,9 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using Tracker.Web.Models
+@using Tracker.Entities.Identity
 
-@inject SignInManager<ApplicationUser> SignInManager
-@inject UserManager<ApplicationUser> UserManager
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
 
 @if (SignInManager.IsSignedIn(User))
 {
