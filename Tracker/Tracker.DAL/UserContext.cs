@@ -11,6 +11,10 @@ namespace Tracker.DAL
     {
         //private IConfiguration config;
 
+
+        public DbSet<Menu> Menus { get; set; }
+        public DbSet<MenuItem> MenuItems { get; set; }
+
         public UserContext(DbContextOptions<UserContext> options) : base(options)
         {
         }
@@ -28,7 +32,6 @@ namespace Tracker.DAL
             modelBuilder.Entity<IdentityUserClaim<string>>().ToTable("UserClaim");
             modelBuilder.Entity<IdentityRoleClaim<string>>().ToTable("RoleClaim");
             modelBuilder.Entity<IdentityUserToken<string>>().ToTable("UserToken");
-
         }
 
     }

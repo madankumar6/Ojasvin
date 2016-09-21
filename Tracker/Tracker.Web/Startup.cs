@@ -17,6 +17,7 @@ using Tracker.DAL;
 using Tracker.Entities.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Tracker.Web
 {
@@ -52,8 +53,15 @@ namespace Tracker.Web
 
             services.AddMvc(config =>
             {
-                var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
-                config.Filters.Add(new AuthorizeFilter(policy));
+                config.CacheProfiles.Add("TrackerCache", new CacheProfile()
+                {
+                    NoStore = true,
+                    Location = ResponseCacheLocation.None
+                });
+
+                var authorizeFilter = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+                config.Filters.Add(new AuthorizeFilter(authorizeFilter));
+                config.Filters.Add(new ResponseCacheFilter());
             });
 
             services.AddDbContext<UserContext>(options =>
@@ -95,7 +103,16 @@ namespace Tracker.Web
 
             app.UseFileServer();
 
-            app.UseStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                OnPrepareResponse = (context) =>
+                {
+                    // Disable caching for all static files.
+                    context.Context.Response.Headers["Cache-Control"] = "no-cache, no-store";
+                    context.Context.Response.Headers["Pragma"] = "no-cache";
+                    context.Context.Response.Headers["Expires"] = "-1";
+                }
+            });
 
             app.UseIdentity();
 
