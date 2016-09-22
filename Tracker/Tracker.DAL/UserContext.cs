@@ -7,7 +7,7 @@ using Tracker.Entities.Identity;
 
 namespace Tracker.DAL
 {
-    public class UserContext : IdentityDbContext<User, Role, string>
+    public class UserContext : IdentityDbContext<User, Role, int>
     {
         //private IConfiguration config;
 
@@ -26,11 +26,11 @@ namespace Tracker.DAL
             // Customize the ASP.NET Identity model and override the defaults if needed. 
             modelBuilder.Entity<User>().ToTable("User");
             modelBuilder.Entity<Role>().ToTable("Role");
-            modelBuilder.Entity<IdentityUserRole<string>>().ToTable("UserRole");
-            modelBuilder.Entity<IdentityUserClaim<string>>().ToTable("UserClaim");
-            modelBuilder.Entity<IdentityRoleClaim<string>>().ToTable("RoleClaim");
-            modelBuilder.Entity<IdentityUserToken<string>>().ToTable("UserToken");
-            modelBuilder.Entity<IdentityUserLogin<string>>().ToTable("UserLogin");
+            modelBuilder.Entity<IdentityUserRole<int>>().ToTable("UserRole");
+            modelBuilder.Entity<IdentityUserClaim<int>>().ToTable("UserClaim");
+            modelBuilder.Entity<IdentityRoleClaim<int>>().ToTable("RoleClaim");
+            modelBuilder.Entity<IdentityUserToken<int>>().ToTable("UserToken");
+            modelBuilder.Entity<IdentityUserLogin<int>>().ToTable("UserLogin");
         }
 
     }

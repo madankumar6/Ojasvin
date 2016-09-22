@@ -72,7 +72,7 @@ namespace Tracker.Web
                 config.Password.RequiredLength = 3;
                 config.Cookies.ApplicationCookie.LoginPath = "/Account/Login/";
             })
-                .AddEntityFrameworkStores<UserContext, string>();
+                .AddEntityFrameworkStores<UserContext, int>();
 
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();

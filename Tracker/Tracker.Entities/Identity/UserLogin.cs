@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace Tracker.Entities.Identity
 {
-    public class UserLogin : IdentityUserLogin<string>
-    {
-    }
+    //public class UserLogin : IdentityUserLogin<string>
+    //{
+    //}
 }

@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Tracker.Entities;
+using Tracker.Entities.Identity;
+
 
 namespace Tracker.DAL
 {
@@ -19,5 +21,11 @@ namespace Tracker.DAL
         {
             menuBuilder.HasKey(p => p.MenuId);
         }
+
+        private static void ConfigureUser(EntityTypeBuilder<User> menuBuilder)
+        {
+            menuBuilder.HasKey(p => p.Id);
+        }
+
     }
 }
