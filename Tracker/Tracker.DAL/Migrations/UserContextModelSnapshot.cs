@@ -60,9 +60,6 @@ namespace Tracker.DAL.Migrations
 
                     b.Property<string>("ProviderKey");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired();
-
                     b.Property<string>("ProviderDisplayName");
 
                     b.Property<string>("UserId")
@@ -73,8 +70,6 @@ namespace Tracker.DAL.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("UserLogin");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUserLogin<string>");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserRole<string>", b =>
@@ -109,7 +104,7 @@ namespace Tracker.DAL.Migrations
 
             modelBuilder.Entity("Tracker.Entities.Identity.Address", b =>
                 {
-                    b.Property<Guid>("AddressId")
+                    b.Property<int>("AddressId")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("AddressLine1");
@@ -216,6 +211,8 @@ namespace Tracker.DAL.Migrations
                     b.Property<int>("MenuId")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("Description");
+
                     b.Property<string>("Name");
 
                     b.HasKey("MenuId");
@@ -253,16 +250,6 @@ namespace Tracker.DAL.Migrations
                     b.HasIndex("ParentMenuId");
 
                     b.ToTable("MenuItems");
-                });
-
-            modelBuilder.Entity("Tracker.Entities.Identity.UserLogin", b =>
-                {
-                    b.HasBaseType("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserLogin<string>");
-
-
-                    b.ToTable("UserLogin");
-
-                    b.HasDiscriminator().HasValue("UserLogin");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<string>", b =>

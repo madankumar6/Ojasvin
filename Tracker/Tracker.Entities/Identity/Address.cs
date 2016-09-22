@@ -4,7 +4,7 @@ namespace Tracker.Entities.Identity
 {
     public class Address
     {
-        public Guid AddressId { get; set; } = Guid.NewGuid();
+        public int AddressId { get; set; }
         public string AddressLine1 { get; set; }
         public string AddressLine2 { get; set; }
         public string AddressLine3 { get; set; }

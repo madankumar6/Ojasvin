@@ -18,6 +18,7 @@ using Tracker.Entities.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MySQL.Data.EntityFrameworkCore.Extensions;
 
 namespace Tracker.Web
 {
@@ -50,6 +51,7 @@ namespace Tracker.Web
         {
             // Add framework services.
             services.AddApplicationInsightsTelemetry(Configuration);
+            ConfigureDatabase(services);
 
             services.AddMvc(config =>
             {
@@ -64,16 +66,13 @@ namespace Tracker.Web
                 config.Filters.Add(new ResponseCacheFilter());
             });
 
-            services.AddDbContext<UserContext>(options =>
-                options.UseSqlServer(Configuration["ConnectionStrings:TrackerOffice"], b => b.MigrationsAssembly("Tracker.DAL")));
-
             services.AddIdentity<User, Role>(config =>
             {
                 config.User.RequireUniqueEmail = true;
                 config.Password.RequiredLength = 3;
                 config.Cookies.ApplicationCookie.LoginPath = "/Account/Login/";
             })
-                .AddEntityFrameworkStores<UserContext>();
+                .AddEntityFrameworkStores<UserContext, string>();
 
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
@@ -105,13 +104,13 @@ namespace Tracker.Web
 
             app.UseStaticFiles(new StaticFileOptions()
             {
-                OnPrepareResponse = (context) =>
-                {
-                    // Disable caching for all static files.
-                    context.Context.Response.Headers["Cache-Control"] = "no-cache, no-store";
-                    context.Context.Response.Headers["Pragma"] = "no-cache";
-                    context.Context.Response.Headers["Expires"] = "-1";
-                }
+                //OnPrepareResponse = (context) =>
+                //{
+                //    // Disable caching for all static files.
+                //    context.Context.Response.Headers["Cache-Control"] = "no-cache, no-store";
+                //    context.Context.Response.Headers["Pragma"] = "no-cache";
+                //    context.Context.Response.Headers["Expires"] = "-1";
+                //}
             });
 
             app.UseIdentity();
@@ -124,6 +123,26 @@ namespace Tracker.Web
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+        }
+
+        public void ConfigureDatabase(IServiceCollection services)
+        {
+            string database = Configuration["Data:Database"];
+            string connection = Configuration["Data:Connection"];
+            string connectionString = $"ConnectionStrings:{connection}";
+
+            switch (database)
+            {
+                case "SQLServer":
+                    services.AddDbContext<UserContext>(options => options.UseSqlServer(Configuration[connectionString], b => b.MigrationsAssembly("Tracker.DAL")));
+                    break;
+                case "MySql":
+                    services.AddDbContext<UserContext>(options => options.UseMySQL(Configuration[connectionString], b => b.MigrationsAssembly("Tracker.DAL")));
+                    break;
+                default:
+                    services.AddDbContext<UserContext>(options => options.UseSqlServer(Configuration[connectionString], b => b.MigrationsAssembly("Tracker.DAL")));
+                    break;
+            }
         }
     }
 }

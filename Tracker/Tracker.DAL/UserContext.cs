@@ -27,11 +27,10 @@ namespace Tracker.DAL
             modelBuilder.Entity<User>().ToTable("User");
             modelBuilder.Entity<Role>().ToTable("Role");
             modelBuilder.Entity<IdentityUserRole<string>>().ToTable("UserRole");
-            modelBuilder.Entity<UserLogin>().ToTable("UserLogin");
-            modelBuilder.Entity<IdentityUserLogin<string>>().ToTable("UserLogin");
             modelBuilder.Entity<IdentityUserClaim<string>>().ToTable("UserClaim");
             modelBuilder.Entity<IdentityRoleClaim<string>>().ToTable("RoleClaim");
             modelBuilder.Entity<IdentityUserToken<string>>().ToTable("UserToken");
+            modelBuilder.Entity<IdentityUserLogin<string>>().ToTable("UserLogin");
         }
 
     }

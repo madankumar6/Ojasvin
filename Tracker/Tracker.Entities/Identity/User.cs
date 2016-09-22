@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace Tracker.Entities.Identity
 {
-    public class User : IdentityUser
+    public class User : IdentityUser<string>
     {
         public DateTime DateOfBirth { get; set; }
 
