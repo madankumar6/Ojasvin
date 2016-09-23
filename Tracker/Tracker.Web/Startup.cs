@@ -134,13 +134,13 @@ namespace Tracker.Web
             switch (database)
             {
                 case "SQLServer":
-                    services.AddDbContext<UserContext>(options => options.UseSqlServer(Configuration[connectionString], b => b.MigrationsAssembly("Tracker.DAL")));
+                    services.AddDbContext<UserContext>(options => options.UseSqlServer(Configuration[connectionString], b => b.MigrationsAssembly("Tracker.DAL")), ServiceLifetime.Scoped);
                     break;
                 case "MySql":
-                    services.AddDbContext<UserContext>(options => options.UseMySQL(Configuration[connectionString], b => b.MigrationsAssembly("Tracker.DAL")));
+                    services.AddDbContext<UserContext>(options => options.UseMySQL(Configuration[connectionString], b => b.MigrationsAssembly("Tracker.DAL")), ServiceLifetime.Scoped);
                     break;
                 default:
-                    services.AddDbContext<UserContext>(options => options.UseSqlServer(Configuration[connectionString], b => b.MigrationsAssembly("Tracker.DAL")));
+                    services.AddDbContext<UserContext>(options => options.UseSqlServer(Configuration[connectionString], b => b.MigrationsAssembly("Tracker.DAL")), ServiceLifetime.Scoped);
                     break;
             }
         }

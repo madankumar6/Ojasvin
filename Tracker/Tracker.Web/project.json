@@ -1,4 +1,4 @@
-﻿{
+{
   "userSecretsId": "aspnet-Tracker.Web-26d9ec6e-7231-4c22-985d-24a7792f2343",
 
   "dependencies": {
@@ -47,7 +47,9 @@
     "Microsoft.AspNetCore.Mvc.Core": "1.0.1",
     "BundlerMinifier.Core": "2.2.281",
     "Microsoft.AspNetCore.Identity": "1.0.0",
-    "MySql.Data.EntityFrameworkCore": "7.0.5-IR21"
+    "MySql.Data.EntityFrameworkCore": "7.0.5-IR21",
+    "Newtonsoft.Json": "9.0.1",
+    "JsonNet.PrivateSettersContractResolvers.Source": "0.1.0"
   },
 
   "tools": {

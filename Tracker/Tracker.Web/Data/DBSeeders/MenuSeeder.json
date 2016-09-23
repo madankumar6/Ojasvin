@@ -1,0 +1,12 @@
+﻿[
+  {
+    "MenuId": "0",
+    "Name": "SuperAdmin",
+    "Description": "List of Menus available for the SuperAdmin"
+  },
+  {
+    "MenuId": "1",
+    "Name": "Admin",
+    "Description": "List of Menus available for the Admin"
+  }
+]
