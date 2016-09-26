@@ -1,4 +1,4 @@
-﻿{
+{
   "version": "1.0.0-*",
 
   "dependencies": {
@@ -8,7 +8,9 @@
     "Microsoft.EntityFrameworkCore.SqlServer": "1.0.1",
     "Tracker.Entities": "1.0.0-*",
     "System.Linq.Expressions": "4.1.0",
-    "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "1.0.0"
+    "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "1.0.0",
+    "Microsoft.Extensions.Configuration": "1.0.0",
+    "Microsoft.Extensions.Configuration.FileExtensions": "1.0.0"
   },
 
   "tools": {

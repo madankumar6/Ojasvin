@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Tracker.Entities.Identity;
+using Tracker.Entities;
 
 namespace Tracker.Web.Services
 {
@@ -17,7 +18,17 @@ namespace Tracker.Web.Services
                 ContractResolver = new PrivateSetterContractResolver()
             };
 
-            List<User> events = JsonConvert.DeserializeObject<List<User>>(jsonData, settings);
+            List<Menu> menus = JsonConvert.DeserializeObject<List<Menu>>(jsonData, settings);
+
+            using (var serviceScope = serviceProvider.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            {
+                var context = serviceScope.ServiceProvider.GetService<DAL.UserContext>();
+                if (!context.Menus.Any())
+                {
+                    context.AddRange(menus);
+                    context.SaveChanges();
+                }
+            }
         }
     }
 }

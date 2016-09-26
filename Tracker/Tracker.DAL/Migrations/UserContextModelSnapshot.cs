@@ -226,9 +226,9 @@ namespace Tracker.DAL.Migrations
 
                     b.Property<string>("Action");
 
-                    b.Property<string>("CSSClass");
-
                     b.Property<string>("Controller");
+
+                    b.Property<string>("CssClass");
 
                     b.Property<bool>("Enabled");
 
@@ -240,7 +240,7 @@ namespace Tracker.DAL.Migrations
 
                     b.Property<string>("Text");
 
-                    b.Property<string>("URL");
+                    b.Property<string>("Url");
 
                     b.HasKey("MenuItemId");
 

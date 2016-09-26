@@ -3,13 +3,13 @@
   {
     "Name": "SuperAdmin",
     "Description": "List of Menus available for the SuperAdmin",
-    "MenuItem": []
+    "MenuItems": []
   },
   //Admin Menus
   {
     "Name": "Admin",
     "Description": "List of Menus available for the Admin",
-    "MenuItem": [
+    "MenuItems": [
       {
         "Text": "Dashboard",
         "Url": "#",
@@ -23,7 +23,7 @@
         "MenuOrder": "2",
         "CssClass": "",
         "IsEnabled": "true",
-        "MenuItem": [
+        "SubMenuItems": [
           {
             "Text": "Distributor",
             "Url": "#",
@@ -53,7 +53,7 @@
         "MenuOrder": "3",
         "CssClass": "",
         "IsEnabled": "true",
-        "MenuItem": []
+        "SubMenuItems": []
       },
       {
         "Text": "Reports",
@@ -61,7 +61,7 @@
         "MenuOrder": "4",
         "CssClass": "",
         "IsEnabled": "true",
-        "MenuItem": [
+        "SubMenuItems": [
           {
             "Text": "Parking Report",
             "Url": "#",
@@ -112,7 +112,7 @@
         "MenuOrder": "5",
         "CssClass": "",
         "IsEnabled": "true",
-        "MenuItem": []
+        "SubMenuItems": []
       },
       {
         "Text": "Server Management",
@@ -120,7 +120,7 @@
         "MenuOrder": "6",
         "CssClass": "",
         "IsEnabled": "true",
-        "MenuItem": []
+        "SubMenuItems": []
       },
       {
         "Text": "Vehicles Online",
@@ -128,7 +128,7 @@
         "MenuOrder": "7",
         "CssClass": "",
         "IsEnabled": "true",
-        "MenuItem": []
+        "SubMenuItems": []
       }
     ]
   }

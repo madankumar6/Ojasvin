@@ -8,7 +8,7 @@ using Tracker.DAL;
 namespace Tracker.DAL.Migrations
 {
     [DbContext(typeof(UserContext))]
-    [Migration("20160922075657_MyFirstMigration")]
+    [Migration("20160926093753_MyFirstMigration")]
     partial class MyFirstMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -227,9 +227,9 @@ namespace Tracker.DAL.Migrations
 
                     b.Property<string>("Action");
 
-                    b.Property<string>("CSSClass");
-
                     b.Property<string>("Controller");
+
+                    b.Property<string>("CssClass");
 
                     b.Property<bool>("Enabled");
 
@@ -241,7 +241,7 @@ namespace Tracker.DAL.Migrations
 
                     b.Property<string>("Text");
 
-                    b.Property<string>("URL");
+                    b.Property<string>("Url");
 
                     b.HasKey("MenuItemId");
 

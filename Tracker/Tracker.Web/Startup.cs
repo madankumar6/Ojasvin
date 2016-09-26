@@ -77,6 +77,8 @@ namespace Tracker.Web
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -123,6 +125,10 @@ namespace Tracker.Web
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            var filename = @"Data/DBSeeders/MenuSeeder.json";
+            var dataText = System.IO.File.ReadAllText(filename);
+            DBSeeder.SeedDB(dataText, app.ApplicationServices);
         }
 
         public void ConfigureDatabase(IServiceCollection services)

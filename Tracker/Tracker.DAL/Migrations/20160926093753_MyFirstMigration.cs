@@ -200,14 +200,14 @@ namespace Tracker.DAL.Migrations
                     MenuItemId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Action = table.Column<string>(nullable: true),
-                    CSSClass = table.Column<string>(nullable: true),
                     Controller = table.Column<string>(nullable: true),
+                    CssClass = table.Column<string>(nullable: true),
                     Enabled = table.Column<bool>(nullable: false),
                     MenuId = table.Column<int>(nullable: true),
                     MenuOrder = table.Column<int>(nullable: true),
                     ParentMenuId = table.Column<int>(nullable: true),
                     Text = table.Column<string>(nullable: true),
-                    URL = table.Column<string>(nullable: true)
+                    Url = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

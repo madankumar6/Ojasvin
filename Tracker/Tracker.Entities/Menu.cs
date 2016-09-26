@@ -9,5 +9,10 @@ namespace Tracker.Entities
         public string Description { get; set; }
 
         public ICollection<MenuItem> MenuItems { get; set; }
+
+        public Menu()
+        {
+            MenuItems = new List<MenuItem>();
+        }
     }
 }

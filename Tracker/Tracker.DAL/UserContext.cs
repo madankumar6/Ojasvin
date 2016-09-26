@@ -9,7 +9,7 @@ namespace Tracker.DAL
 {
     public class UserContext : IdentityDbContext<User, Role, int>
     {
-        //private IConfiguration config;
+        private IConfigurationRoot Configuration { get; }
 
 
         public DbSet<Menu> Menus { get; set; }
@@ -19,8 +19,21 @@ namespace Tracker.DAL
         {
         }
 
+        public UserContext()
+        {
+            var builder = new ConfigurationBuilder()
+                .SetBasePath()
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
+            builder.AddEnvironmentVariables();
+            Configuration = builder.Build();
 
+        }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            base.OnConfiguring(optionsBuilder);
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
