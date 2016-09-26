@@ -1,16 +1,19 @@
-﻿[
-  //SuperAdmin Menus
+[
   {
+    "MenuId": "0",
     "Name": "SuperAdmin",
-    "Description": "List of Menus available for the SuperAdmin",
-    "MenuItem": []
+    "Description": "List of Menus available for the SuperAdmin"
+
+
   },
-  //Admin Menus
   {
+    "MenuId": "1",
     "Name": "Admin",
     "Description": "List of Menus available for the Admin",
     "MenuItem": [
       {
+        "MenuItemId": "1",
+        "MenuId": "1",
         "Text": "Dashboard",
         "Url": "#",
         "MenuOrder": "1",
@@ -18,6 +21,8 @@
         "IsEnabled": "true"
       },
       {
+        "MenuItemId": "2",
+        "MenuId": "1",
         "Text": "Masters",
         "Url": "#",
         "MenuOrder": "2",
@@ -25,37 +30,52 @@
         "IsEnabled": "true",
         "MenuItem": [
           {
+            "MenuItemId": "2",
+            "MenuId": "1",
             "Text": "Distributor",
             "Url": "#",
             "MenuOrder": "1",
             "CssClass": "",
-            "IsEnabled": "true"
+            "IsEnabled": "true",
+            "ParentMenuId": "2" 
           },
           {
+            "MenuItemId": "2",
+            "MenuId": "1",
             "Text": "Dealer",
             "Url": "#",
             "MenuOrder": "2",
             "CssClass": "",
-            "IsEnabled": "true"
+            "IsEnabled": "true",
+            "ParentMenuId": "2"
           },
           {
+            "MenuItemId": "2",
+            "MenuId": "1",
             "Text": "Customers",
             "Url": "#",
             "MenuOrder": "3",
             "CssClass": "",
-            "IsEnabled": "true"
+            "IsEnabled": "true",
+            "ParentMenuId": "2"
           }
-        ]
+        ] 
       },
       {
+        "MenuItemId": "3",
+        "MenuId": "1",
         "Text": "Alert Management",
         "Url": "",
         "MenuOrder": "3",
         "CssClass": "",
         "IsEnabled": "true",
-        "MenuItem": []
+        "MenuItem": [
+
+        ] 
       },
       {
+        "MenuItemId": "4",
+        "MenuId": "1",
         "Text": "Reports",
         "Url": "",
         "MenuOrder": "4",
@@ -63,72 +83,93 @@
         "IsEnabled": "true",
         "MenuItem": [
           {
+            "MenuItemId": "2",
+            "MenuId": "1",
             "Text": "Parking Report",
             "Url": "#",
             "MenuOrder": "1",
             "CssClass": "",
-            "IsEnabled": "true"
+            "IsEnabled": "true",
+            "ParentMenuId": "2"
           },
           {
+            "MenuItemId": "2",
+            "MenuId": "1",
             "Text": "Speed Report",
             "Url": "#",
             "MenuOrder": "1",
             "CssClass": "",
-            "IsEnabled": "true"
+            "IsEnabled": "true",
+            "ParentMenuId": "2"
           },
           {
+            "MenuItemId": "2",
+            "MenuId": "1",
             "Text": "OverSpeed Report",
             "Url": "#",
             "MenuOrder": "1",
             "CssClass": "",
-            "IsEnabled": "true"
+            "IsEnabled": "true",
+            "ParentMenuId": "2"
           },
           {
+            "MenuItemId": "2",
+            "MenuId": "1",
             "Text": "Ignition Report",
             "Url": "#",
             "MenuOrder": "1",
             "CssClass": "",
-            "IsEnabled": "true"
+            "IsEnabled": "true",
+            "ParentMenuId": "2"
           },
           {
+            "MenuItemId": "2",
+            "MenuId": "1",
             "Text": "Daily Travelled",
             "Url": "#",
             "MenuOrder": "1",
             "CssClass": "",
-            "IsEnabled": "true"
+            "IsEnabled": "true",
+            "ParentMenuId": "2"
           },
           {
+            "MenuItemId": "2",
+            "MenuId": "1",
             "Text": "Summary Report",
             "Url": "#",
             "MenuOrder": "1",
             "CssClass": "",
-            "IsEnabled": "true"
+            "IsEnabled": "true",
+            "ParentMenuId": "2"
           }
-        ]
+        ] 
       },
       {
+        "MenuItemId": "5",
+        "MenuId": "1",
         "Text": "User Management",
         "Url": "",
         "MenuOrder": "5",
         "CssClass": "",
-        "IsEnabled": "true",
-        "MenuItem": []
+        "IsEnabled": "true"
       },
       {
+        "MenuItemId": "6",
+        "MenuId": "1",
         "Text": "Server Management",
         "Url": "",
         "MenuOrder": "6",
         "CssClass": "",
-        "IsEnabled": "true",
-        "MenuItem": []
+        "IsEnabled": "true"
       },
       {
+        "MenuItemId": "7",
+        "MenuId": "1",
         "Text": "Vehicles Online",
         "Url": "",
         "MenuOrder": "7",
         "CssClass": "",
-        "IsEnabled": "true",
-        "MenuItem": []
+        "IsEnabled": "true"
       }
     ]
   }

@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Tracker.Entities
+﻿namespace Tracker.Entities
 {
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.Linq;
+    using System.Threading.Tasks;
+
     public class MenuItem
     {
         [Key]
@@ -13,9 +13,9 @@ namespace Tracker.Entities
         public string Text { get; set; }
         public string Action { get; set; }
         public string Controller { get; set; }
-        public string URL { get; set; }
+        public string Url { get; set; }
         public int? MenuOrder { get; set; }
-        public string CSSClass { get; set; }
+        public string CssClass { get; set; }
         public bool Enabled { get; set; }
 
         public int? ParentMenuId { get; set; }

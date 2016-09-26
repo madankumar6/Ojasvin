@@ -77,13 +77,13 @@
                             {
                                 if (menu.Children == null || menu.Children.Count == 0)
                                 {
-                                    <li><a href="@(Url.Action(menu.Action, menu.Controller))"><i class="@menu.CSSClass"></i><span>@menu.Text</span></a></li>
+                                    <li><a href="@(Url.Action(menu.Action, menu.Controller))"><i class="@menu.CssClass"></i><span>@menu.Text</span></a></li>
                                 }
                                 else
                                 {
                                     <li class="treeview">
                                         <a href="#">
-                                            <i class="@menu.CSSClass"></i>
+                                            <i class="@menu.CssClass"></i>
                                             <span>@menu.Text</span>
                                             <i class="fa fa-angle-left pull-right"></i>
                                         </a>
