@@ -7,7 +7,7 @@
 
   <Import Project="$(VSToolsPath)\DotNet\Microsoft.DotNet.Props" Condition="'$(VSToolsPath)' != ''" />
   <PropertyGroup Label="Globals">
-    <ProjectGuid>5d4df30c-ac85-4381-8f62-3dba0ff2cc8a</ProjectGuid>
+    <ProjectGuid>8a20f915-1a25-4977-83ec-2a39e067cb97</ProjectGuid>
     <RootNamespace>Tracker.Common</RootNamespace>
     <BaseIntermediateOutputPath Condition="'$(BaseIntermediateOutputPath)'=='' ">.\obj</BaseIntermediateOutputPath>
     <OutputPath Condition="'$(OutputPath)'=='' ">.\bin\</OutputPath>

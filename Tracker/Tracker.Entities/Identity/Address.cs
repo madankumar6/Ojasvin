@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Tracker.Entities.Identity
+﻿namespace Tracker.Entities.Identity
 {
     public class Address
     {

@@ -1,10 +1,9 @@
 ﻿namespace Tracker.DAL
 {
-    using System;
-
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
+
     using Tracker.Entities;
     using Tracker.Entities.Identity;
 
@@ -17,16 +16,6 @@
 
         public UserContext(DbContextOptions<UserContext> options) : base(options)
         {
-        }
-
-        public UserContext(TrackerDatabase database, string connectionString)
-        {
-        }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseSqlServer(ConfigurationManager.ConnectionStrings["BloggingDatabase"].ConnectionString);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

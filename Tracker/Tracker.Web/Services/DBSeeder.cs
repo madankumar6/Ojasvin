@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using Microsoft.Extensions.DependencyInjection;
 using System.Linq;
-using System.Threading.Tasks;
+
 using Newtonsoft.Json;
-using Tracker.Entities.Identity;
+
 using Tracker.Entities;
 
 namespace Tracker.Web.Services
