@@ -20,14 +20,24 @@
 
         private static void ConfigureMenu(EntityTypeBuilder<Menu> menuBuilder)
         {
+            menuBuilder.ToTable("Menu");
             menuBuilder.HasKey(p => p.MenuId);
             menuBuilder.Property(p => p.MenuId).ValueGeneratedOnAdd();
         }
 
-        private static void ConfigureUser(EntityTypeBuilder<User> menuBuilder)
+        private static void ConfigureUser(EntityTypeBuilder<User> userBuilder)
         {
-            menuBuilder.HasKey(p => p.Id);
+            userBuilder.HasKey(p => p.Id);
+            userBuilder.Property(p => p.Id).ValueGeneratedOnAdd();
+
         }
 
+        private static void ConfigureMenuItem(EntityTypeBuilder<MenuItem> menuItemsBuilder)
+        {
+            menuItemsBuilder.ToTable("MenuItem");
+            menuItemsBuilder.Property(p => p.MenuItemId).ValueGeneratedOnAdd();
+
+
+        }
     }
 }

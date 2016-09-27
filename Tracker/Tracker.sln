@@ -18,6 +18,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Tracker.Console", "Tracker.Console\Tracker.Console.xproj", "{E05EF040-8214-4916-AF01-37FED518E139}"
 EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Tracker.Common", "Tracker.Common\Tracker.Common.xproj", "{5D4DF30C-AC85-4381-8F62-3DBA0FF2CC8A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -40,6 +42,10 @@ Global
 		{E05EF040-8214-4916-AF01-37FED518E139}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E05EF040-8214-4916-AF01-37FED518E139}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E05EF040-8214-4916-AF01-37FED518E139}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D4DF30C-AC85-4381-8F62-3DBA0FF2CC8A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D4DF30C-AC85-4381-8F62-3DBA0FF2CC8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D4DF30C-AC85-4381-8F62-3DBA0FF2CC8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D4DF30C-AC85-4381-8F62-3DBA0FF2CC8A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

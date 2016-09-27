@@ -104,21 +104,11 @@ namespace Tracker.Web
 
             app.UseFileServer();
 
-            app.UseStaticFiles(new StaticFileOptions()
-            {
-                //OnPrepareResponse = (context) =>
-                //{
-                //    // Disable caching for all static files.
-                //    context.Context.Response.Headers["Cache-Control"] = "no-cache, no-store";
-                //    context.Context.Response.Headers["Pragma"] = "no-cache";
-                //    context.Context.Response.Headers["Expires"] = "-1";
-                //}
-            });
+            app.UseStaticFiles(new StaticFileOptions());
 
             app.UseIdentity();
 
             // Add external authentication middleware below. To configure them please see http://go.microsoft.com/fwlink/?LinkID=532715
-
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
@@ -142,7 +132,7 @@ namespace Tracker.Web
                 case "SQLServer":
                     services.AddDbContext<UserContext>(options => options.UseSqlServer(Configuration[connectionString], b => b.MigrationsAssembly("Tracker.DAL")), ServiceLifetime.Scoped);
                     break;
-                case "MySql":
+                case "MySQL":
                     services.AddDbContext<UserContext>(options => options.UseMySQL(Configuration[connectionString], b => b.MigrationsAssembly("Tracker.DAL")), ServiceLifetime.Scoped);
                     break;
                 default:

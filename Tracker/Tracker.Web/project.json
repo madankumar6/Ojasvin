@@ -43,6 +43,7 @@
     "Microsoft.VisualStudio.Web.CodeGenerators.Mvc": "1.0.0-preview2-update1",
     "Tracker.DAL": "1.0.0-*",
     "Tracker.Entities": "1.0.0-*",
+    "Tracker.Common": "1.0.0-*",
     "Microsoft.AspNetCore.Authorization": "1.0.0",
     "Microsoft.AspNetCore.Mvc.Core": "1.0.1",
     "BundlerMinifier.Core": "2.2.281",
