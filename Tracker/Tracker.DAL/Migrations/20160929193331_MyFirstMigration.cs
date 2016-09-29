@@ -1,5 +1,5 @@
 ﻿using System;
-
+using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -78,6 +78,21 @@ namespace Tracker.DAL.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Menus", x => x.MenuId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "RoleMenus",
+                columns: table => new
+                {
+                    RoleMenuId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    IsEnabled = table.Column<bool>(nullable: false),
+                    MenuId = table.Column<int>(nullable: false),
+                    RoleId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RoleMenus", x => x.RoleMenuId);
                 });
 
             migrationBuilder.CreateTable(
@@ -199,8 +214,6 @@ namespace Tracker.DAL.Migrations
                 {
                     MenuItemId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Action = table.Column<string>(nullable: true),
-                    Controller = table.Column<string>(nullable: true),
                     CssClass = table.Column<string>(nullable: true),
                     Enabled = table.Column<bool>(nullable: false),
                     MenuId = table.Column<int>(nullable: true),
@@ -305,6 +318,9 @@ namespace Tracker.DAL.Migrations
 
             migrationBuilder.DropTable(
                 name: "MenuItems");
+
+            migrationBuilder.DropTable(
+                name: "RoleMenus");
 
             migrationBuilder.DropTable(
                 name: "Role");

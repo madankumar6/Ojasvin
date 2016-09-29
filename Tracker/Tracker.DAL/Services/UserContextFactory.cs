@@ -6,7 +6,7 @@
 
     public class UserContextFactory 
     {
-        public UserContext Create(TrackerDatabase database, string connectionString)
+        public static UserContext Create(TrackerDatabase database, string connectionString)
         {
             DbContextOptionsBuilder<UserContext> optionsBuilder = new DbContextOptionsBuilder<UserContext>();
 

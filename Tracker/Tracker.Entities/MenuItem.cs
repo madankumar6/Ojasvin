@@ -14,14 +14,14 @@
         public bool Enabled { get; set; }
 
         public int? ParentMenuId { get; set; }
-        public virtual MenuItem ParentMenu { get; set; }
-        public virtual ICollection<MenuItem> SubMenuItems { get; set; }
+        public MenuItem ParentMenu { get; set; }
+        public ICollection<MenuItem> SubMenuItems { get; set; }
         public int? MenuId { get; set; }
-        public virtual Menu Menu { get; set; }
+        public Menu Menu { get; set; }
 
         public MenuItem()
         {
-            SubMenuItems = new List<MenuItem>();
+            this.SubMenuItems = new List<MenuItem>();
         }
     }
 }

@@ -12,7 +12,7 @@ namespace Tracker.Entities
 
         public Menu()
         {
-            MenuItems = new List<MenuItem>();
+            this.MenuItems = new List<MenuItem>();
         }
     }
 }

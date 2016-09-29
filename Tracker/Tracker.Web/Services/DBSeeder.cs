@@ -9,6 +9,8 @@ using Tracker.Entities;
 
 namespace Tracker.Web.Services
 {
+    using Tracker.DAL;
+
     public static class DBSeeder
     {
         public static void SeedDB(string jsonData, IServiceProvider serviceProvider)

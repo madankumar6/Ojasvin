@@ -2,6 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
+using Tracker.DAL;
 
 namespace Tracker.DAL.Migrations
 {
@@ -222,10 +224,6 @@ namespace Tracker.DAL.Migrations
                     b.Property<int>("MenuItemId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Action");
-
-                    b.Property<string>("Controller");
-
                     b.Property<string>("CssClass");
 
                     b.Property<bool>("Enabled");
@@ -247,6 +245,22 @@ namespace Tracker.DAL.Migrations
                     b.HasIndex("ParentMenuId");
 
                     b.ToTable("MenuItems");
+                });
+
+            modelBuilder.Entity("Tracker.Entities.RoleMenu", b =>
+                {
+                    b.Property<int>("RoleMenuId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<bool>("IsEnabled");
+
+                    b.Property<int>("MenuId");
+
+                    b.Property<int>("RoleId");
+
+                    b.HasKey("RoleMenuId");
+
+                    b.ToTable("RoleMenus");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<int>", b =>
@@ -301,7 +315,7 @@ namespace Tracker.DAL.Migrations
                         .HasForeignKey("MenuId");
 
                     b.HasOne("Tracker.Entities.MenuItem", "ParentMenu")
-                        .WithMany("Children")
+                        .WithMany("SubMenuItems")
                         .HasForeignKey("ParentMenuId");
                 });
         }

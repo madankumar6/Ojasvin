@@ -8,7 +8,11 @@
     "Microsoft.NETCore.App": {
       "type": "platform",
       "version": "1.0.1"
-    }
+    },
+    "Tracker.Common": "1.0.0-*",
+    "Tracker.Entities": "1.0.0-*",
+    "Tracker.DAL": "1.0.0-*",
+    "Microsoft.Extensions.Configuration.Json": "1.0.0" 
   },
 
   "frameworks": {

@@ -13,6 +13,7 @@
 
         public DbSet<Menu> Menus { get; set; }
         public DbSet<MenuItem> MenuItems { get; set; }
+        public DbSet<RoleMenu> RoleMenus { get; set; }
 
         public UserContext(DbContextOptions<UserContext> options) : base(options)
         {

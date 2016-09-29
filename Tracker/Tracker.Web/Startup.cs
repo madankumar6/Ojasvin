@@ -1,20 +1,21 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-
-using Tracker.Web.Services;
-using Tracker.DAL;
-using Tracker.Entities.Identity;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using MySQL.Data.EntityFrameworkCore.Extensions;
-
-namespace Tracker.Web
+﻿namespace Tracker.Web
 {
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.Authorization;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Logging;
+
+    using MySQL.Data.EntityFrameworkCore.Extensions;
+
+    using Tracker.DAL;
+    using Tracker.Entities.Identity;
+    using Tracker.Web.Services;
+
     public class Startup
     {
         public Startup(IHostingEnvironment env)
@@ -34,7 +35,7 @@ namespace Tracker.Web
             }
 
             builder.AddEnvironmentVariables();
-            Configuration = builder.Build();
+            this.Configuration = builder.Build();
         }
 
         public IConfigurationRoot Configuration { get; }
@@ -45,6 +46,7 @@ namespace Tracker.Web
             // Add framework services.
             services.AddApplicationInsightsTelemetry(Configuration);
             ConfigureDatabase(services);
+            //services.AddDbContext<UserContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:Tracker"], b => b.MigrationsAssembly("Tracker.DAL")), ServiceLifetime.Scoped);
 
             services.AddMvc(config =>
             {
@@ -109,9 +111,9 @@ namespace Tracker.Web
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
 
-            var filename = @"Data/DBSeeders/MenuSeeder.json";
-            var dataText = System.IO.File.ReadAllText(filename);
-            DBSeeder.SeedDB(dataText, app.ApplicationServices);
+            //var filename = @"Data/DBSeeders/MenuSeeder.json";
+            //var dataText = System.IO.File.ReadAllText(filename);
+            //DBSeeder.SeedDB(dataText, app.ApplicationServices);
         }
 
         public void ConfigureDatabase(IServiceCollection services)
@@ -123,13 +125,13 @@ namespace Tracker.Web
             switch (database)
             {
                 case "SQLServer":
-                    services.AddDbContext<UserContext>(options => options.UseSqlServer(Configuration[connectionString], b => b.MigrationsAssembly("Tracker.DAL")), ServiceLifetime.Scoped);
+                    services.AddDbContext<UserContext>(options => options.UseSqlServer(Configuration[connectionString], b => b.MigrationsAssembly("Tracker.DAL")));
                     break;
                 case "MySQL":
-                    services.AddDbContext<UserContext>(options => options.UseMySQL(Configuration[connectionString], b => b.MigrationsAssembly("Tracker.DAL")), ServiceLifetime.Scoped);
+                    services.AddDbContext<UserContext>(options => options.UseMySQL(Configuration[connectionString], b => b.MigrationsAssembly("Tracker.DAL")));
                     break;
                 default:
-                    services.AddDbContext<UserContext>(options => options.UseSqlServer(Configuration[connectionString], b => b.MigrationsAssembly("Tracker.DAL")), ServiceLifetime.Scoped);
+                    services.AddDbContext<UserContext>(options => options.UseSqlServer(Configuration[connectionString], b => b.MigrationsAssembly("Tracker.DAL")));
                     break;
             }
         }

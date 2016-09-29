@@ -1,0 +1,135 @@
+﻿[
+  //SuperAdmin Menus
+  {
+    "Name": "SuperAdmin",
+    "Description": "List of Menus available for the SuperAdmin",
+    "MenuItems": []
+  },
+  //Admin Menus
+  {
+    "Name": "Admin",
+    "Description": "List of Menus available for the Admin",
+    "MenuItems": [
+      {
+        "Text": "Dashboard",
+        "Url": "#",
+        "MenuOrder": "1",
+        "CssClass": "",
+        "IsEnabled": "true"
+      },
+      {
+        "Text": "Masters",
+        "Url": "#",
+        "MenuOrder": "2",
+        "CssClass": "",
+        "IsEnabled": "true",
+        "SubMenuItems": [
+          {
+            "Text": "Distributor",
+            "Url": "#",
+            "MenuOrder": "1",
+            "CssClass": "",
+            "IsEnabled": "true"
+          },
+          {
+            "Text": "Dealer",
+            "Url": "#",
+            "MenuOrder": "2",
+            "CssClass": "",
+            "IsEnabled": "true"
+          },
+          {
+            "Text": "Customers",
+            "Url": "#",
+            "MenuOrder": "3",
+            "CssClass": "",
+            "IsEnabled": "true"
+          }
+        ]
+      },
+      {
+        "Text": "Alert Management",
+        "Url": "",
+        "MenuOrder": "3",
+        "CssClass": "",
+        "IsEnabled": "true",
+        "SubMenuItems": []
+      },
+      {
+        "Text": "Reports",
+        "Url": "",
+        "MenuOrder": "4",
+        "CssClass": "",
+        "IsEnabled": "true",
+        "SubMenuItems": [
+          {
+            "Text": "Parking Report",
+            "Url": "#",
+            "MenuOrder": "1",
+            "CssClass": "",
+            "IsEnabled": "true"
+          },
+          {
+            "Text": "Speed Report",
+            "Url": "#",
+            "MenuOrder": "1",
+            "CssClass": "",
+            "IsEnabled": "true"
+          },
+          {
+            "Text": "OverSpeed Report",
+            "Url": "#",
+            "MenuOrder": "1",
+            "CssClass": "",
+            "IsEnabled": "true"
+          },
+          {
+            "Text": "Ignition Report",
+            "Url": "#",
+            "MenuOrder": "1",
+            "CssClass": "",
+            "IsEnabled": "true"
+          },
+          {
+            "Text": "Daily Travelled",
+            "Url": "#",
+            "MenuOrder": "1",
+            "CssClass": "",
+            "IsEnabled": "true"
+          },
+          {
+            "Text": "Summary Report",
+            "Url": "#",
+            "MenuOrder": "1",
+            "CssClass": "",
+            "IsEnabled": "true"
+          }
+        ]
+      },
+      {
+        "Text": "User Management",
+        "Url": "",
+        "MenuOrder": "5",
+        "CssClass": "",
+        "IsEnabled": "true",
+        "SubMenuItems": []
+      },
+      {
+        "Text": "Server Management",
+        "Url": "",
+        "MenuOrder": "6",
+        "CssClass": "",
+        "IsEnabled": "true",
+        "SubMenuItems": []
+      },
+      {
+        "Text": "Vehicles Online",
+        "Url": "",
+        "MenuOrder": "7",
+        "CssClass": "",
+        "IsEnabled": "true",
+        "SubMenuItems": []
+      }
+    ]
+  }
+]
