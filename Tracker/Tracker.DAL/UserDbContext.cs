@@ -7,7 +7,7 @@
     using Tracker.Entities;
     using Tracker.Entities.Identity;
 
-    public class UserContext : IdentityDbContext<User, Role, int>
+    public class UserDbContext : IdentityDbContext<User, Role, int>
     {
         private IConfigurationRoot Configuration { get; }
 
@@ -15,7 +15,7 @@
         public DbSet<MenuItem> MenuItems { get; set; }
         public DbSet<RoleMenu> RoleMenus { get; set; }
 
-        public UserContext(DbContextOptions<UserContext> options) : base(options)
+        public UserDbContext(DbContextOptions<UserDbContext> options) : base(options)
         {
         }
 

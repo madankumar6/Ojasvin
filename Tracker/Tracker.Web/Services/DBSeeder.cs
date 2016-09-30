@@ -24,7 +24,7 @@ namespace Tracker.Web.Services
 
             using (var serviceScope = serviceProvider.GetRequiredService<IServiceScopeFactory>().CreateScope())
             {
-                var context = serviceScope.ServiceProvider.GetService<DAL.UserContext>();
+                var context = serviceScope.ServiceProvider.GetService<DAL.UserDbContext>();
                 if (!context.Menus.Any())
                 {
                     context.AddRange(menus);

@@ -46,7 +46,7 @@
             // Add framework services.
             services.AddApplicationInsightsTelemetry(Configuration);
             ConfigureDatabase(services);
-            //services.AddDbContext<UserContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:Tracker"], b => b.MigrationsAssembly("Tracker.DAL")), ServiceLifetime.Scoped);
+            //services.AddDbContext<UserDbContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:Tracker"], b => b.MigrationsAssembly("Tracker.DAL")), ServiceLifetime.Scoped);
 
             services.AddMvc(config =>
             {
@@ -67,7 +67,7 @@
                 config.Password.RequiredLength = 3;
                 config.Cookies.ApplicationCookie.LoginPath = "/Account/Login/";
             })
-                .AddEntityFrameworkStores<UserContext, int>();
+                .AddEntityFrameworkStores<UserDbContext, int>();
 
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
@@ -124,14 +124,14 @@
 
             switch (database)
             {
-                case "SQLServer":
-                    services.AddDbContext<UserContext>(options => options.UseSqlServer(Configuration[connectionString], b => b.MigrationsAssembly("Tracker.DAL")));
+                case "SqlServer":
+                    services.AddDbContext<UserDbContext>(options => options.UseSqlServer(Configuration[connectionString], b => b.MigrationsAssembly("Tracker.DAL")));
                     break;
-                case "MySQL":
-                    services.AddDbContext<UserContext>(options => options.UseMySQL(Configuration[connectionString], b => b.MigrationsAssembly("Tracker.DAL")));
+                case "MySql":
+                    services.AddDbContext<UserDbContext>(options => options.UseMySQL(Configuration[connectionString], b => b.MigrationsAssembly("Tracker.DAL")));
                     break;
                 default:
-                    services.AddDbContext<UserContext>(options => options.UseSqlServer(Configuration[connectionString], b => b.MigrationsAssembly("Tracker.DAL")));
+                    services.AddDbContext<UserDbContext>(options => options.UseSqlServer(Configuration[connectionString], b => b.MigrationsAssembly("Tracker.DAL")));
                     break;
             }
         }

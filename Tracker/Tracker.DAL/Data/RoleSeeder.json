@@ -1,0 +1,10 @@
+﻿[
+  {
+    "Name": "SuperAdmin",
+    "Description": "Manages the entire application, having access to all functionalities"
+  },
+  {
+    "Name": "Admin",
+    "Description": "Manages the entire application, actual user of the application"
+  }
+]

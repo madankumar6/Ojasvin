@@ -6,9 +6,9 @@ namespace Tracker.Web.Controllers
 {
     public class HomeController : Controller
     {
-        UserContext tcontext;
+        UserDbContext tcontext;
 
-        public HomeController(UserContext context)
+        public HomeController(UserDbContext context)
         {
             tcontext = context;
         }

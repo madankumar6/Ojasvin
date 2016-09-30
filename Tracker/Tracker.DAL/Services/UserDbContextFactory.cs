@@ -4,11 +4,11 @@
 
     using Tracker.Common;
 
-    public class UserContextFactory 
+    public class UserDbContextFactory 
     {
-        public static UserContext Create(TrackerDatabase database, string connectionString)
+        public static UserDbContext Create(TrackerDatabase database, string connectionString)
         {
-            DbContextOptionsBuilder<UserContext> optionsBuilder = new DbContextOptionsBuilder<UserContext>();
+            DbContextOptionsBuilder<UserDbContext> optionsBuilder = new DbContextOptionsBuilder<UserDbContext>();
 
             switch (database)
             {
@@ -26,7 +26,7 @@
                     break;
             }
 
-            return new UserContext(optionsBuilder.Options);
+            return new UserDbContext(optionsBuilder.Options);
         }
     }
 }

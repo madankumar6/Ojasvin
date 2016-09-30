@@ -10,43 +10,91 @@
 
     using Tracker.DAL;
     using Tracker.Entities;
+    using Entities.Identity;
+    using Microsoft.Extensions.Configuration;
 
-    public static class DBSeeder
+    public class DBSeeder
     {
-        public static void SeedMenus(string jsonData, IServiceProvider serviceProvider)
+        private static IConfigurationRoot Configuration { get; set; }
+
+        public DBSeeder()
+        {
+            var builder = new ConfigurationBuilder()
+                //.SetBasePath(System.Reflection.Assembly.GetEntryAssembly().Location)
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+
+            Configuration = builder.Build();
+        }
+        public void SeedMenus(IServiceProvider serviceProvider)
         {
             using (var serviceScope = serviceProvider.GetRequiredService<IServiceScopeFactory>().CreateScope())
             {
-                var context = serviceScope.ServiceProvider.GetService<DAL.UserContext>();
-               SeedMenus(context);
+                var userDbContext = serviceScope.ServiceProvider.GetService<DAL.UserDbContext>();
+                SeedMenus(userDbContext);
             }
         }
 
-        public static void SeedMenus(string jsonData, UserContext userContext)
+        public void SeedMenus(string seedData, UserDbContext userDbContext)
         {
             JsonSerializerSettings settings = new JsonSerializerSettings
             {
                 ContractResolver = new PrivateSetterContractResolver()
             };
 
-            List<Menu> menus = JsonConvert.DeserializeObject<List<Menu>>(jsonData, settings);
+            List<Menu> menus = JsonConvert.DeserializeObject<List<Menu>>(seedData, settings);
 
-            using (userContext)
+            using (userDbContext)
             {
-                if (!userContext.Menus.Any())
+                if (!userDbContext.Menus.Any())
                 {
-                    userContext.AddRange(menus);
-                    userContext.SaveChanges();
+                    userDbContext.AddRange(menus);
+                    userDbContext.SaveChanges();
                 }
             }
         }
 
-        public static void SeedMenus(UserContext userContext)
+        public void SeedMenus(UserDbContext userDbContext)
         {
             var filename = @"Data/MenuSeeder.json";
-            var dataText = System.IO.File.ReadAllText(filename);
+            var seedData = System.IO.File.ReadAllText(filename);
 
-            SeedMenus(dataText, userContext);
+            SeedMenus(seedData, userDbContext);
+        }
+
+        public void SeedRoles(IServiceProvider serviceProvider)
+        {
+            using (var serviceScope = serviceProvider.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            {
+                var userDbContext = serviceScope.ServiceProvider.GetService<DAL.UserDbContext>();
+                SeedRoles(userDbContext);
+            }
+        }
+
+        public void SeedRoles(string seedData, UserDbContext userDbContext)
+        {
+            JsonSerializerSettings settings = new JsonSerializerSettings
+            {
+                ContractResolver = new PrivateSetterContractResolver()
+            };
+
+            List<Role> roles = JsonConvert.DeserializeObject<List<Role>>(seedData, settings);
+
+            using (userDbContext)
+            {
+                if (!userDbContext.Roles.Any())
+                {
+                    userDbContext.AddRange(roles);
+                    userDbContext.SaveChanges();
+                }
+            }
+        }
+
+        public void SeedRoles(UserDbContext userDbContext)
+        {
+            var filename = @"Data/RoleSeeder.json";
+            var seedData = System.IO.File.ReadAllText(filename);
+
+            SeedRoles(seedData, userDbContext);
         }
     }
 }

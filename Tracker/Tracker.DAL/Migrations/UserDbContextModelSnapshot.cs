@@ -7,11 +7,10 @@ using Tracker.DAL;
 
 namespace Tracker.DAL.Migrations
 {
-    [DbContext(typeof(UserContext))]
-    [Migration("20160929193331_MyFirstMigration")]
-    partial class MyFirstMigration
+    [DbContext(typeof(UserDbContext))]
+    partial class UserDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.1")

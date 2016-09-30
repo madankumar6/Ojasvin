@@ -1,6 +1,6 @@
 EF Migrations Commands
-Add-Migration MyFirstMigration -Context UserContext
-Update-Database -Context UserContext
+Add-Migration MyFirstMigration -Context UserDbContext
+Update-Database -Context UserDbContext
 
 Database.SetInitializer(new DatabaseSeeder());
 DatabaseContext c = new DatabaseContext();

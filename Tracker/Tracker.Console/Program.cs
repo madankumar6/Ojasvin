@@ -11,7 +11,7 @@
 
     public class Program
     {
-        private static UserContext userContext;
+        private static UserDbContext userDbContext;
         private static IConfigurationRoot Configuration { get; set; }
 
         public static void Main(string[] args)
@@ -31,12 +31,12 @@
 
             var connectionString = Configuration["ConnectionStrings:Tracker"];
 
-            userContext = UserContextFactory.Create(TrackerDatabase.SqlServer, connectionString);
-            DBSeeder.SeedMenus(dataText, userContext);
+            userDbContext = UserDbContextFactory.Create(TrackerDatabase.SqlServer, connectionString);
+            DBSeeder.SeedMenus(dataText, userDbContext);
 
             var menusList =
-                userContext.Menus.Join(
-                        userContext.RoleMenus.Where(rm => rm.RoleId == 1),
+                userDbContext.Menus.Join(
+                        userDbContext.RoleMenus.Where(rm => rm.RoleId == 1),
                         m => m.MenuId,
                         r => r.MenuId,
                         (menu, role) => new { menuList = menu }).SelectMany(i => i.menuList.MenuItems)
