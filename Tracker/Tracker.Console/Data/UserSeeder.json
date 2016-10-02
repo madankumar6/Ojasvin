@@ -1,0 +1,10 @@
+﻿[
+  {
+    "UserName": "madan",
+    "Email": "madan@ot.com",
+    "PasswordHash": "Asd@12",
+    "Roles": [
+      "SuperAdmin"
+    ] 
+  }
+]

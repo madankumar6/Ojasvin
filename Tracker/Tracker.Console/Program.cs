@@ -12,27 +12,39 @@
     public class Program
     {
         private static UserDbContext userDbContext;
-        private static IConfigurationRoot Configuration { get; set; }
+        private static DbSeeder dbSeeder;
+
+        private static string connectionString;
 
         public static void Main(string[] args)
         {
-            var builder = new ConfigurationBuilder()
-                //.SetBasePath(System.Reflection.Assembly.GetEntryAssembly().Location)
-                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+            var connectionString = "Data Source=LAPTOP-NV8CBL0N\\SQLEXPRESS;Initial Catalog=TrackerCore;Trusted_Connection=True;User ID = sa;Password = welcome;Persist Security Info = True;Integrated Security =True;";
 
-            Configuration = builder.Build();
-            BuildDBMenus();
-        }
-
-        public static void BuildDBMenus()
-        {
-            var filename = @"Data/DBSeeders/MenuSeeder.json";
-            var dataText = System.IO.File.ReadAllText(filename);
-
-            var connectionString = Configuration["ConnectionStrings:Tracker"];
+            // var connectionString = "Data Source=INL-3J8R6C2;Initial Catalog=TrackerCore;Trusted_Connection=True;User ID = sa;Password = welcome;Persist Security Info = True;Integrated Security =True;";
+            dbSeeder = new DbSeeder();
 
             userDbContext = UserDbContextFactory.Create(TrackerDatabase.SqlServer, connectionString);
-            DBSeeder.SeedMenus(dataText, userDbContext);
+
+
+            // BuildDbMenus();
+            BuildDbRoles();
+        }
+
+        private static void BuildDbRoles()
+        {
+            var filename = @"Data/RoleSeeder.json";
+            var roleSeedData = System.IO.File.ReadAllText(filename);
+
+            dbSeeder.SeedRoles(roleSeedData, userDbContext);
+        }
+
+        public static void BuildDbMenus()
+        {
+            
+            var filename = @"Data/MenuSeeder.json";
+            var menuSeedData = System.IO.File.ReadAllText(filename);
+            
+            dbSeeder.SeedMenus(menuSeedData, userDbContext);
 
             var menusList =
                 userDbContext.Menus.Join(

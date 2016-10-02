@@ -4,33 +4,24 @@
     using System.Collections.Generic;
     using System.Linq;
 
+    using Entities.Identity;
+
+    using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
 
     using Newtonsoft.Json;
 
     using Tracker.DAL;
     using Tracker.Entities;
-    using Entities.Identity;
-    using Microsoft.Extensions.Configuration;
 
-    public class DBSeeder
+    public class DbSeeder
     {
-        private static IConfigurationRoot Configuration { get; set; }
-
-        public DBSeeder()
-        {
-            var builder = new ConfigurationBuilder()
-                //.SetBasePath(System.Reflection.Assembly.GetEntryAssembly().Location)
-                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
-
-            Configuration = builder.Build();
-        }
-        public void SeedMenus(IServiceProvider serviceProvider)
+        public void SeedMenus(string seedData, IServiceProvider serviceProvider)
         {
             using (var serviceScope = serviceProvider.GetRequiredService<IServiceScopeFactory>().CreateScope())
             {
                 var userDbContext = serviceScope.ServiceProvider.GetService<DAL.UserDbContext>();
-                SeedMenus(userDbContext);
+                this.SeedMenus(seedData, userDbContext);
             }
         }
 
@@ -42,31 +33,19 @@
             };
 
             List<Menu> menus = JsonConvert.DeserializeObject<List<Menu>>(seedData, settings);
-
-            using (userDbContext)
+            if (!userDbContext.Menus.Any())
             {
-                if (!userDbContext.Menus.Any())
-                {
-                    userDbContext.AddRange(menus);
-                    userDbContext.SaveChanges();
-                }
+                userDbContext.AddRange(menus);
+                userDbContext.SaveChanges();
             }
         }
 
-        public void SeedMenus(UserDbContext userDbContext)
-        {
-            var filename = @"Data/MenuSeeder.json";
-            var seedData = System.IO.File.ReadAllText(filename);
-
-            SeedMenus(seedData, userDbContext);
-        }
-
-        public void SeedRoles(IServiceProvider serviceProvider)
+        public void SeedRoles(string seedData, IServiceProvider serviceProvider)
         {
             using (var serviceScope = serviceProvider.GetRequiredService<IServiceScopeFactory>().CreateScope())
             {
                 var userDbContext = serviceScope.ServiceProvider.GetService<DAL.UserDbContext>();
-                SeedRoles(userDbContext);
+                this.SeedRoles(seedData, userDbContext);
             }
         }
 
@@ -78,23 +57,11 @@
             };
 
             List<Role> roles = JsonConvert.DeserializeObject<List<Role>>(seedData, settings);
-
-            using (userDbContext)
+            if (!userDbContext.Roles.Any())
             {
-                if (!userDbContext.Roles.Any())
-                {
-                    userDbContext.AddRange(roles);
-                    userDbContext.SaveChanges();
-                }
+                userDbContext.AddRange(roles);
+                userDbContext.SaveChanges();
             }
-        }
-
-        public void SeedRoles(UserDbContext userDbContext)
-        {
-            var filename = @"Data/RoleSeeder.json";
-            var seedData = System.IO.File.ReadAllText(filename);
-
-            SeedRoles(seedData, userDbContext);
         }
     }
 }
