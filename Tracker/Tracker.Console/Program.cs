@@ -28,6 +28,7 @@
 
             // BuildDbMenus();
             BuildDbRoles();
+            BuildDbUsers();
         }
 
         private static void BuildDbRoles()
@@ -36,6 +37,14 @@
             var roleSeedData = System.IO.File.ReadAllText(filename);
 
             dbSeeder.SeedRoles(roleSeedData, userDbContext);
+        }
+
+        private static void BuildDbUsers()
+        {
+            var filename = @"Data/UserSeeder.json";
+            var roleSeedData = System.IO.File.ReadAllText(filename);
+
+            dbSeeder.SeedUsers(roleSeedData, userDbContext);
         }
 
         public static void BuildDbMenus()

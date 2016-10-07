@@ -63,5 +63,32 @@
                 userDbContext.SaveChanges();
             }
         }
+
+        public void SeedUsers(string seedData, IServiceProvider serviceProvider)
+        {
+            using (var serviceScope = serviceProvider.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            {
+                var userDbContext = serviceScope.ServiceProvider.GetService<DAL.UserDbContext>();
+                this.SeedRoles(seedData, userDbContext);
+            }
+        }
+
+        public void SeedUsers(string seedData, UserDbContext userDbContext)
+        {
+            JsonSerializerSettings settings = new JsonSerializerSettings
+            {
+                ContractResolver = new UserContractResolver()
+            };
+
+            List<User> users = JsonConvert.DeserializeObject<List<User>>(seedData, settings);
+            if (!userDbContext.Users.Any())
+            {
+                userDbContext.AddRange(users);
+                userDbContext.SaveChanges();
+            }
+
+            var userRoles = JsonConvert.DeserializeObject<ValueTuple<string, string>>(seedData, new UserRoleJsonConverter());
+           
+        }
     }
 }

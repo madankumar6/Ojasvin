@@ -6,7 +6,7 @@
 
     public class UserDbContextFactory 
     {
-        public static UserDbContext Create(TrackerDatabase database, string connectionString)
+        public static UserDbContext Create(TrackerDatabase database = TrackerDatabase.SqlServer, string connectionString = "Data Source=LAPTOP-NV8CBL0N\\SQLEXPRESS;Initial Catalog=TrackerCore;Trusted_Connection=True;User ID = sa;Password = welcome;Persist Security Info = True;Integrated Security =True;")
         {
             DbContextOptionsBuilder<UserDbContext> optionsBuilder = new DbContextOptionsBuilder<UserDbContext>();
 
