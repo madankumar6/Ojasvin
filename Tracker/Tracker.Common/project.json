@@ -1,8 +1,11 @@
 ﻿{
   "version": "1.0.0-*",
 
+  "buildOptions": {
+    "debugType": "portable"
+  },
+
   "dependencies": {
-    "NETStandard.Library": "1.6.0"
   },
 
   "frameworks": {
@@ -10,7 +13,10 @@
       "imports": [
         "dnxcore50",
         "portable-net452+win81"
-      ]
+      ],
+      "dependencies": {
+        "NETStandard.Library": "1.6.1-preview1-24530-04"
+      }
     }
   }
 }

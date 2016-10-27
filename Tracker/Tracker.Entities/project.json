@@ -1,15 +1,21 @@
 ﻿{
   "version": "1.0.0-*",
 
+  "buildOptions": {
+    "debugType": "portable"
+  },
+
   "dependencies": {
     "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "1.0.0",
     "Microsoft.AspNetCore.Identity": "1.0.0",
-    "Microsoft.EntityFrameworkCore": "1.0.1",
-    "NETStandard.Library": "1.6.0"
+    "Microsoft.EntityFrameworkCore": "1.0.1"
   },
 
   "frameworks": {
     "netstandard1.6": {
+      "dependencies": {
+        "NETStandard.Library": "1.6.1-preview1-24530-04"
+      },
       "imports": [
         "dnxcore50",
         "portable-net452+win81"

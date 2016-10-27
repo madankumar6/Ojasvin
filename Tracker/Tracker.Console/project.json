@@ -1,22 +1,25 @@
-﻿{
+{
   "version": "1.0.0-*",
   "buildOptions": {
+    "debugType": "portable",
     "emitEntryPoint": true
   },
 
   "dependencies": {
-    "Microsoft.NETCore.App": {
-      "type": "platform",
-      "version": "1.0.1"
-    },
     "Tracker.Common": "1.0.0-*",
     "Tracker.Entities": "1.0.0-*",
     "Tracker.DAL": "1.0.0-*",
-    "Microsoft.Extensions.Configuration.Json": "1.0.0" 
+    "Microsoft.Extensions.Configuration.Json": "1.1.0-preview1-final"
   },
 
   "frameworks": {
-    "netcoreapp1.0": {
+    "netcoreapp1.1": {
+      "dependencies": {
+        "Microsoft.NETCore.App": {
+          "type": "platform",
+          "version": "1.1.0-preview1-001100-00"
+        }
+      },
       "imports": "dnxcore50"
     }
   }
