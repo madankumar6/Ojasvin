@@ -1,5 +1,6 @@
 ﻿namespace Tracker.Console
 {
+    using System.IO;
     using System.Linq;
 
     using Microsoft.EntityFrameworkCore;
@@ -13,18 +14,25 @@
     {
         private static UserDbContext userDbContext;
         private static DbSeeder dbSeeder;
-
+        private static IConfigurationRoot Configuration;
         private static string connectionString;
 
         public static void Main(string[] args)
         {
-            var connectionString = "Data Source=LAPTOP-NV8CBL0N\\SQLEXPRESS;Initial Catalog=TrackerCore;Trusted_Connection=True;User ID = sa;Password = welcome;Persist Security Info = True;Integrated Security =True;";
+            var builder = new ConfigurationBuilder()
+                            .SetBasePath(Directory.GetCurrentDirectory())
+                            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
 
-            // var connectionString = "Data Source=INL-3J8R6C2;Initial Catalog=TrackerCore;Trusted_Connection=True;User ID = sa;Password = welcome;Persist Security Info = True;Integrated Security =True;";
+            Configuration = builder.Build();
+
+            string database = Configuration["Data:Database"];
+            string connection = Configuration["Data:Connection"];
+            string connectionStringData = $"ConnectionStrings:{connection}";
+            connectionString = Configuration[connectionStringData];
+
             dbSeeder = new DbSeeder();
 
             userDbContext = UserDbContextFactory.Create(TrackerDatabase.SqlServer, connectionString);
-
 
             // BuildDbMenus();
             BuildDbRoles();

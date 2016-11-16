@@ -28,5 +28,24 @@
 
             return new UserDbContext(optionsBuilder.Options);
         }
+
+        public static UserDbContext Create(string database, string connectionString)
+        {
+            DbContextOptionsBuilder<UserDbContext> optionsBuilder = new DbContextOptionsBuilder<UserDbContext>();
+
+            switch (database)
+            {
+                case "SqlServer":
+                    optionsBuilder.UseSqlServer(connectionString);
+                    break;
+                case "MySql":
+                    break;
+                default:
+                    optionsBuilder.UseSqlServer(connectionString);
+
+                    break;
+            }
+            return new UserDbContext(optionsBuilder.Options);
+        }
     }
 }
