@@ -1,19 +1,14 @@
 ﻿[
-  // Password is Asd@12
   {
     "UserName": "madan",
     "Email": "madan@ot.com",
     "PasswordHash": "AQAAAAEAACcQAAAAEOGZ1/J1ToYIW+6F6TkvuhH1M6vDs4Ky15fOFz84XdnOvB8xyZIrt8oC5Gu9yBpC9w==",
-    "Roles": [
-      "1"
-    ]
+    "RoleName": "SuperAdmin"
   },
   {
     "UserName": "ramesh",
     "Email": "ramesh@ot.com",
     "PasswordHash": "AQAAAAEAACcQAAAAEOGZ1/J1ToYIW+6F6TkvuhH1M6vDs4Ky15fOFz84XdnOvB8xyZIrt8oC5Gu9yBpC9w==",
-    "Roles": [
-      "2"
-    ]
+    "RoleName": "Admin"
   }
 ]

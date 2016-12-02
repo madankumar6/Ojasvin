@@ -34,7 +34,7 @@
 
             userDbContext = UserDbContextFactory.Create(TrackerDatabase.SqlServer, connectionString);
 
-            // BuildDbMenus();
+            BuildDbMenus();
             BuildDbRoles();
             BuildDbUsers();
         }

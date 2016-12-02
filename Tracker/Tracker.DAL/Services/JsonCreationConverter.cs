@@ -35,6 +35,11 @@
             return target;
         }
 
+        public override bool CanRead
+        {
+            get { return false; }
+        }
+
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
             throw new NotImplementedException();

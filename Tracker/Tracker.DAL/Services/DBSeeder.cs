@@ -13,6 +13,9 @@
 
     using Tracker.DAL;
     using Tracker.Entities;
+    using Newtonsoft.Json.Converters;
+    using System.Dynamic;
+    using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
     public class DbSeeder
     {
@@ -69,7 +72,6 @@
             using (var serviceScope = serviceProvider.GetRequiredService<IServiceScopeFactory>().CreateScope())
             {
                 var userDbContext = serviceScope.ServiceProvider.GetService<DAL.UserDbContext>();
-                this.SeedRoles(seedData, userDbContext);
             }
         }
 
@@ -77,18 +79,36 @@
         {
             JsonSerializerSettings settings = new JsonSerializerSettings
             {
-                ContractResolver = new UserContractResolver()
+                ContractResolver = new PrivateSetterContractResolver()
             };
 
-            List<User> users = JsonConvert.DeserializeObject<List<User>>(seedData, settings);
+            List<UserRoleSeeder> userRolesSeeder = JsonConvert.DeserializeObject<List<UserRoleSeeder>>(seedData, settings);
+
+            var roles = userDbContext.Roles.ToList();
+            var users = new List<User>();
+            var identityUserRoles = new List<IdentityUserRole<int>>();
+
+            foreach (var userRoleSeedObj in userRolesSeeder)
+            {
+                users.Add(new User { UserName = userRoleSeedObj.UserName, PasswordHash = userRoleSeedObj.PasswordHash, Email = userRoleSeedObj.Email });
+            }
+
             if (!userDbContext.Users.Any())
             {
                 userDbContext.AddRange(users);
                 userDbContext.SaveChanges();
             }
 
-            var userRoles = JsonConvert.DeserializeObject<ValueTuple<string, string>>(seedData, new UserRoleJsonConverter());
-           
+            foreach (var userRoleSeedObj in userRolesSeeder)
+            {
+                identityUserRoles.Add(new IdentityUserRole<int> { RoleId = roles.First(role => role.Name == userRoleSeedObj.RoleName).Id, UserId = users.First(user => user.UserName == userRoleSeedObj.UserName).Id });
+            }
+
+            if (!userDbContext.UserRoles.Any())
+            {
+                userDbContext.AddRange(identityUserRoles);
+                userDbContext.SaveChanges();
+            }
         }
     }
 }
