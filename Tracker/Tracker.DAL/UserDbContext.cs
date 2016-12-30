@@ -17,7 +17,7 @@
 
         public UserDbContext(DbContextOptions<UserDbContext> options) : base(options)
         {
-            Database.EnsureCreated();
+            //Database.EnsureCreated();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -25,13 +25,15 @@
             base.OnModelCreating(modelBuilder);
 
             // Customize the ASP.NET Identity model and override the defaults if needed. 
-            modelBuilder.Entity<User>().ToTable("User");
-            modelBuilder.Entity<Role>().ToTable("Role");
-            modelBuilder.Entity<IdentityUserRole<int>>().ToTable("UserRole");
-            modelBuilder.Entity<IdentityUserClaim<int>>().ToTable("UserClaim");
-            modelBuilder.Entity<IdentityRoleClaim<int>>().ToTable("RoleClaim");
-            modelBuilder.Entity<IdentityUserToken<int>>().ToTable("UserToken");
-            modelBuilder.Entity<IdentityUserLogin<int>>().ToTable("UserLogin");
+            modelBuilder.Entity<User>(EntitiesConfiguration.ConfigureUser);
+            modelBuilder.Entity<Role>(EntitiesConfiguration.ConfigureRole);
+            modelBuilder.Entity<IdentityUserRole<int>>(EntitiesConfiguration.ConfigureUserRole);
+            modelBuilder.Entity<IdentityUserClaim<int>>(EntitiesConfiguration.ConfigureUserClaim);
+            modelBuilder.Entity<IdentityUserToken<int>>(EntitiesConfiguration.ConfigureUserToken);
+            modelBuilder.Entity<IdentityUserLogin<int>>(EntitiesConfiguration.ConfigureUserLogin);
+            modelBuilder.Entity<IdentityRoleClaim<int>>(EntitiesConfiguration.ConfigureRoleClaim);
+
+
         }
     }
 }

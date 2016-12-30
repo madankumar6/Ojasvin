@@ -68,16 +68,16 @@
                 <!-- sidebar menu: : style can be found in sidebar.less -->
                 <ul class="sidebar-menu">
                     @{
-                        List<Tracker.Entities.MenuItem> result = new List<Tracker.Entities.MenuItem>();
+                        List<Tracker.Entities.MenuItem> menuItems = new List<Tracker.Entities.MenuItem>();
 
-                        if (result != null)
+                        if (menuItems != null)
                         {
-                            result = result.OrderBy(m => m.MenuOrder).ToList();
-                            foreach (var menu in result)
+                            menuItems = menuItems.OrderBy(m => m.MenuOrder).ToList();
+                            foreach (var menu in menuItems)
                             {
-                                if (menu.Children == null || menu.Children.Count == 0)
+                                if (menu.SubMenuItems == null || menu.SubMenuItems.Count == 0)
                                 {
-                                    <li><a href="@(Url.Action(menu.Action, menu.Controller))"><i class="@menu.CssClass"></i><span>@menu.Text</span></a></li>
+                                    <li><a href="@(menu.Url)"><i class="@menu.CssClass"></i><span>@menu.Text</span></a></li>
                                 }
                                 else
                                 {
@@ -89,9 +89,9 @@
                                         </a>
                                         <ul class="treeview-menu">
                                             @*@Helpers.BuildMenu(menu.Children)*@
-                                            @foreach (var subMenu in menu.Children.OrderBy(m => m.MenuOrder).ToList())
+                                            @foreach (var subMenu in menu.SubMenuItems.OrderBy(m => m.MenuOrder).ToList())
                                             {
-                                                <li><a href="@(Url.Action(subMenu.Action, subMenu.Controller))"><i class="fa fa-circle-o"></i>@subMenu.Text</a></li>
+                                                <li><a href="@(subMenu.Url)"><i class="fa fa-circle-o"></i>@subMenu.Text</a></li>
                                             }
                                         </ul>
                                     </li>

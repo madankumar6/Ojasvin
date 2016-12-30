@@ -16,3 +16,13 @@ SignInManager<>
 IdentityUser
 UserStore<IdentityUser>
 IdentityDBContext<IdentityUser>
+
+Token Based Authendication
+	The work flow is like this.
+		If the token is not valid or doesn't exist on the client, the user gets redirected to the log-in route
+		The user enters his credentials and presses the log-in button
+		The date gets posted to the server where a special middle-ware handles that request
+		The user gets authenticated on the server side
+		The token, including a validation date and some meta date, gets created
+		The token gets returned back to the client
+		the client stores the token in the local storage, cookie or whatever, to use it on every new request.
