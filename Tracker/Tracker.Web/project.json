@@ -54,6 +54,7 @@
     "Newtonsoft.Json": "9.0.2-beta1",
     "Tracker.DAL": "1.0.0-*",
     "Tracker.Entities": "1.0.0-*",
+    "Tracker.ViewModels": "1.0.0-*",
     "Microsoft.AspNetCore.Session": "1.0.0"
   },
 

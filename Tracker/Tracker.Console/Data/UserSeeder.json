@@ -2,13 +2,13 @@
   {
     "UserName": "madan",
     "Email": "madan@ot.com",
-    "PasswordHash": "AQAAAAEAACcQAAAAEOGZ1/J1ToYIW+6F6TkvuhH1M6vDs4Ky15fOFz84XdnOvB8xyZIrt8oC5Gu9yBpC9w==",
-    "RoleName":  "SuperAdmin"
+    "PasswordHash": "AQAAAAEAACcQAAAAEKJ0WTi3Et/Gcp4WsKjD6D8JlFJrjHENz5Q4E852tMhDbbMyf/P10zBJDmvFOtMvZQ==",
+    "RoleName": "SuperAdmin"
   },
   {
     "UserName": "ramesh",
     "Email": "ramesh@ot.com",
-    "PasswordHash": "AQAAAAEAACcQAAAAEOGZ1/J1ToYIW+6F6TkvuhH1M6vDs4Ky15fOFz84XdnOvB8xyZIrt8oC5Gu9yBpC9w==",
+    "PasswordHash": "AQAAAAEAACcQAAAAEKJ0WTi3Et/Gcp4WsKjD6D8JlFJrjHENz5Q4E852tMhDbbMyf/P10zBJDmvFOtMvZQ==",
     "RoleName": "Admin"
   }
 ]

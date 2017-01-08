@@ -1,26 +1,29 @@
-﻿using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.Extensions.Logging;
-
-using Tracker.Web.Models.AccountViewModels;
-using Tracker.Web.Services;
-using Tracker.Entities.Identity;
-
-namespace Tracker.Web.Controllers
+﻿namespace Tracker.Web.Controllers
 {
+    using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
+    using System.Security.Claims;
+    using System.Threading.Tasks;
+
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.Rendering;
+    using Microsoft.Extensions.Logging;
+
+    using Tracker.Entities.Identity;
+    using Tracker.Web.Models.AccountViewModels;
+    using Tracker.Web.Services;
+
     [Authorize]
+    [SuppressMessage("ReSharper", "StyleCop.SA1126")]
     public class AccountController : Controller
     {
-        private readonly UserManager<User> _userManager;
-        private readonly SignInManager<User> _signInManager;
-        private readonly IEmailSender _emailSender;
-        private readonly ISmsSender _smsSender;
-        private readonly ILogger _logger;
+        private readonly UserManager<User> userManager;
+        private readonly SignInManager<User> signInManager;
+        private readonly IEmailSender emailSender;
+        private readonly ISmsSender smsSender;
+        private readonly ILogger logger;
 
         public AccountController(
             UserManager<User> userManager,
@@ -29,14 +32,13 @@ namespace Tracker.Web.Controllers
             ISmsSender smsSender,
             ILoggerFactory loggerFactory)
         {
-            _userManager = userManager;
-            _signInManager = signInManager;
-            _emailSender = emailSender;
-            _smsSender = smsSender;
-            _logger = loggerFactory.CreateLogger<AccountController>();
+            this.userManager = userManager;
+            this.signInManager = signInManager;
+            this.emailSender = emailSender;
+            this.smsSender = smsSender;
+            this.logger = loggerFactory.CreateLogger<AccountController>();
         }
 
-        //
         // GET: /Account/Login
         [HttpGet]
         [AllowAnonymous]
@@ -46,7 +48,6 @@ namespace Tracker.Web.Controllers
             return View();
         }
 
-        //
         // POST: /Account/Login
         [HttpPost]
         [AllowAnonymous]
@@ -58,19 +59,21 @@ namespace Tracker.Web.Controllers
             {
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
+                var result = await signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
-                    _logger.LogInformation(1, "User logged in.");
+                    logger.LogInformation(1, "User logged in.");
                     return RedirectToLocal(returnUrl);
                 }
+
                 if (result.RequiresTwoFactor)
                 {
                     return RedirectToAction(nameof(SendCode), new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                 }
+
                 if (result.IsLockedOut)
                 {
-                    _logger.LogWarning(2, "User account locked out.");
+                    logger.LogWarning(2, "User account locked out.");
                     return View("Lockout");
                 }
                 else
@@ -84,7 +87,6 @@ namespace Tracker.Web.Controllers
             return View(model);
         }
 
-        //
         // GET: /Account/Register
         [HttpGet]
         [AllowAnonymous]
@@ -94,7 +96,6 @@ namespace Tracker.Web.Controllers
             return View();
         }
 
-        //
         // POST: /Account/Register
         [HttpPost]
         [AllowAnonymous]
@@ -105,19 +106,20 @@ namespace Tracker.Web.Controllers
             if (ModelState.IsValid)
             {
                 var user = new User { UserName = model.Email, Email = model.Email };
-                var result = await _userManager.CreateAsync(user, model.Password);
+                var result = await userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=532713
                     // Send an email with this link
-                    //var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    //var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme);
-                    //await _emailSender.SendEmailAsync(model.Email, "Confirm your account",
-                    //    $"Please confirm your account by clicking this link: <a href='{callbackUrl}'>link</a>");
-                    await _signInManager.SignInAsync(user, isPersistent: false);
-                    _logger.LogInformation(3, "User created a new account with password.");
+                    // var code = await userManager.GenerateEmailConfirmationTokenAsync(user);
+                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme);
+                    // await _emailSender.SendEmailAsync(model.Email, "Confirm your account",
+                    // $"Please confirm your account by clicking this link: <a href='{callbackUrl}'>link</a>");
+                    await signInManager.SignInAsync(user, isPersistent: false);
+                    logger.LogInformation(3, "User created a new account with password.");
                     return RedirectToLocal(returnUrl);
                 }
+
                 AddErrors(result);
             }
 
@@ -125,18 +127,16 @@ namespace Tracker.Web.Controllers
             return View(model);
         }
 
-        //
         // POST: /Account/LogOff
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> LogOff()
         {
-            await _signInManager.SignOutAsync();
-            _logger.LogInformation(4, "User logged out.");
+            await signInManager.SignOutAsync();
+            logger.LogInformation(4, "User logged out.");
             return RedirectToAction(nameof(HomeController.Index), "Home");
         }
 
-        //
         // POST: /Account/ExternalLogin
         [HttpPost]
         [AllowAnonymous]
@@ -145,11 +145,10 @@ namespace Tracker.Web.Controllers
         {
             // Request a redirect to the external login provider.
             var redirectUrl = Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl });
-            var properties = _signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
+            var properties = signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
             return Challenge(properties, provider);
         }
 
-        //
         // GET: /Account/ExternalLoginCallback
         [HttpGet]
         [AllowAnonymous]
@@ -160,23 +159,26 @@ namespace Tracker.Web.Controllers
                 ModelState.AddModelError(string.Empty, $"Error from external provider: {remoteError}");
                 return View(nameof(Login));
             }
-            var info = await _signInManager.GetExternalLoginInfoAsync();
+
+            var info = await signInManager.GetExternalLoginInfoAsync();
             if (info == null)
             {
                 return RedirectToAction(nameof(Login));
             }
 
             // Sign in the user with this external login provider if the user already has a login.
-            var result = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false);
+            var result = await signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false);
             if (result.Succeeded)
             {
-                _logger.LogInformation(5, "User logged in with {Name} provider.", info.LoginProvider);
+                logger.LogInformation(5, "User logged in with {Name} provider.", info.LoginProvider);
                 return RedirectToLocal(returnUrl);
             }
+
             if (result.RequiresTwoFactor)
             {
                 return RedirectToAction(nameof(SendCode), new { ReturnUrl = returnUrl });
             }
+
             if (result.IsLockedOut)
             {
                 return View("Lockout");
@@ -191,7 +193,6 @@ namespace Tracker.Web.Controllers
             }
         }
 
-        //
         // POST: /Account/ExternalLoginConfirmation
         [HttpPost]
         [AllowAnonymous]
@@ -201,23 +202,25 @@ namespace Tracker.Web.Controllers
             if (ModelState.IsValid)
             {
                 // Get the information about the user from the external login provider
-                var info = await _signInManager.GetExternalLoginInfoAsync();
+                var info = await signInManager.GetExternalLoginInfoAsync();
                 if (info == null)
                 {
                     return View("ExternalLoginFailure");
                 }
+
                 var user = new User { UserName = model.Email, Email = model.Email };
-                var result = await _userManager.CreateAsync(user);
+                var result = await userManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
-                    result = await _userManager.AddLoginAsync(user, info);
+                    result = await userManager.AddLoginAsync(user, info);
                     if (result.Succeeded)
                     {
-                        await _signInManager.SignInAsync(user, isPersistent: false);
-                        _logger.LogInformation(6, "User created an account using {Name} provider.", info.LoginProvider);
+                        await signInManager.SignInAsync(user, isPersistent: false);
+                        logger.LogInformation(6, "User created an account using {Name} provider.", info.LoginProvider);
                         return RedirectToLocal(returnUrl);
                     }
                 }
+
                 AddErrors(result);
             }
 
@@ -234,16 +237,17 @@ namespace Tracker.Web.Controllers
             {
                 return View("Error");
             }
-            var user = await _userManager.FindByIdAsync(userId);
+
+            var user = await userManager.FindByIdAsync(userId);
             if (user == null)
             {
                 return View("Error");
             }
-            var result = await _userManager.ConfirmEmailAsync(user, code);
+
+            var result = await userManager.ConfirmEmailAsync(user, code);
             return View(result.Succeeded ? "ConfirmEmail" : "Error");
         }
 
-        //
         // GET: /Account/ForgotPassword
         [HttpGet]
         [AllowAnonymous]
@@ -252,7 +256,6 @@ namespace Tracker.Web.Controllers
             return View();
         }
 
-        //
         // POST: /Account/ForgotPassword
         [HttpPost]
         [AllowAnonymous]
@@ -261,8 +264,8 @@ namespace Tracker.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await _userManager.FindByNameAsync(model.Email);
-                if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
+                var user = await userManager.FindByNameAsync(model.Email);
+                if (user == null || !(await userManager.IsEmailConfirmedAsync(user)))
                 {
                     // Don't reveal that the user does not exist or is not confirmed
                     return View("ForgotPasswordConfirmation");
@@ -270,18 +273,17 @@ namespace Tracker.Web.Controllers
 
                 // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=532713
                 // Send an email with this link
-                //var code = await _userManager.GeneratePasswordResetTokenAsync(user);
-                //var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme);
-                //await _emailSender.SendEmailAsync(model.Email, "Reset Password",
-                //   $"Please reset your password by clicking here: <a href='{callbackUrl}'>link</a>");
-                //return View("ForgotPasswordConfirmation");
+                // var code = await userManager.GeneratePasswordResetTokenAsync(user);
+                // var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme);
+                // await _emailSender.SendEmailAsync(model.Email, "Reset Password",
+                // $"Please reset your password by clicking here: <a href='{callbackUrl}'>link</a>");
+                // return View("ForgotPasswordConfirmation");
             }
 
             // If we got this far, something failed, redisplay form
             return View(model);
         }
 
-        //
         // GET: /Account/ForgotPasswordConfirmation
         [HttpGet]
         [AllowAnonymous]
@@ -290,7 +292,6 @@ namespace Tracker.Web.Controllers
             return View();
         }
 
-        //
         // GET: /Account/ResetPassword
         [HttpGet]
         [AllowAnonymous]
@@ -299,7 +300,6 @@ namespace Tracker.Web.Controllers
             return code == null ? View("Error") : View();
         }
 
-        //
         // POST: /Account/ResetPassword
         [HttpPost]
         [AllowAnonymous]
@@ -310,22 +310,24 @@ namespace Tracker.Web.Controllers
             {
                 return View(model);
             }
-            var user = await _userManager.FindByNameAsync(model.Email);
+
+            var user = await userManager.FindByNameAsync(model.Email);
             if (user == null)
             {
                 // Don't reveal that the user does not exist
-                return RedirectToAction(nameof(AccountController.ResetPasswordConfirmation), "Account");
+                return RedirectToAction(nameof(ResetPasswordConfirmation), "Account");
             }
-            var result = await _userManager.ResetPasswordAsync(user, model.Code, model.Password);
+
+            var result = await userManager.ResetPasswordAsync(user, model.Code, model.Password);
             if (result.Succeeded)
             {
-                return RedirectToAction(nameof(AccountController.ResetPasswordConfirmation), "Account");
+                return RedirectToAction(nameof(ResetPasswordConfirmation), "Account");
             }
+
             AddErrors(result);
             return View();
         }
 
-        //
         // GET: /Account/ResetPasswordConfirmation
         [HttpGet]
         [AllowAnonymous]
@@ -334,23 +336,22 @@ namespace Tracker.Web.Controllers
             return View();
         }
 
-        //
         // GET: /Account/SendCode
         [HttpGet]
         [AllowAnonymous]
         public async Task<ActionResult> SendCode(string returnUrl = null, bool rememberMe = false)
         {
-            var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
+            var user = await signInManager.GetTwoFactorAuthenticationUserAsync();
             if (user == null)
             {
                 return View("Error");
             }
-            var userFactors = await _userManager.GetValidTwoFactorProvidersAsync(user);
+
+            var userFactors = await userManager.GetValidTwoFactorProvidersAsync(user);
             var factorOptions = userFactors.Select(purpose => new SelectListItem { Text = purpose, Value = purpose }).ToList();
             return View(new SendCodeViewModel { Providers = factorOptions, ReturnUrl = returnUrl, RememberMe = rememberMe });
         }
 
-        //
         // POST: /Account/SendCode
         [HttpPost]
         [AllowAnonymous]
@@ -362,14 +363,14 @@ namespace Tracker.Web.Controllers
                 return View();
             }
 
-            var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
+            var user = await signInManager.GetTwoFactorAuthenticationUserAsync();
             if (user == null)
             {
                 return View("Error");
             }
 
             // Generate the token and send it
-            var code = await _userManager.GenerateTwoFactorTokenAsync(user, model.SelectedProvider);
+            var code = await userManager.GenerateTwoFactorTokenAsync(user, model.SelectedProvider);
             if (string.IsNullOrWhiteSpace(code))
             {
                 return View("Error");
@@ -378,32 +379,31 @@ namespace Tracker.Web.Controllers
             var message = "Your security code is: " + code;
             if (model.SelectedProvider == "Email")
             {
-                await _emailSender.SendEmailAsync(await _userManager.GetEmailAsync(user), "Security Code", message);
+                await emailSender.SendEmailAsync(await userManager.GetEmailAsync(user), "Security Code", message);
             }
             else if (model.SelectedProvider == "Phone")
             {
-                await _smsSender.SendSmsAsync(await _userManager.GetPhoneNumberAsync(user), message);
+                await smsSender.SendSmsAsync(await userManager.GetPhoneNumberAsync(user), message);
             }
 
             return RedirectToAction(nameof(VerifyCode), new { Provider = model.SelectedProvider, ReturnUrl = model.ReturnUrl, RememberMe = model.RememberMe });
         }
 
-        //
         // GET: /Account/VerifyCode
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> VerifyCode(string provider, bool rememberMe, string returnUrl = null)
         {
             // Require that the user has already logged in via username/password or external login
-            var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
+            var user = await signInManager.GetTwoFactorAuthenticationUserAsync();
             if (user == null)
             {
                 return View("Error");
             }
+
             return View(new VerifyCodeViewModel { Provider = provider, ReturnUrl = returnUrl, RememberMe = rememberMe });
         }
 
-        //
         // POST: /Account/VerifyCode
         [HttpPost]
         [AllowAnonymous]
@@ -418,14 +418,15 @@ namespace Tracker.Web.Controllers
             // The following code protects for brute force attacks against the two factor codes.
             // If a user enters incorrect codes for a specified amount of time then the user account
             // will be locked out for a specified amount of time.
-            var result = await _signInManager.TwoFactorSignInAsync(model.Provider, model.Code, model.RememberMe, model.RememberBrowser);
+            var result = await signInManager.TwoFactorSignInAsync(model.Provider, model.Code, model.RememberMe, model.RememberBrowser);
             if (result.Succeeded)
             {
                 return RedirectToLocal(model.ReturnUrl);
             }
+
             if (result.IsLockedOut)
             {
-                _logger.LogWarning(7, "User account locked out.");
+                logger.LogWarning(7, "User account locked out.");
                 return View("Lockout");
             }
             else
@@ -447,7 +448,7 @@ namespace Tracker.Web.Controllers
 
         private Task<User> GetCurrentUserAsync()
         {
-            return _userManager.GetUserAsync(HttpContext.User);
+            return userManager.GetUserAsync(HttpContext.User);
         }
 
         private IActionResult RedirectToLocal(string returnUrl)

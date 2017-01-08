@@ -26,3 +26,6 @@ Token Based Authendication
 		The token, including a validation date and some meta date, gets created
 		The token gets returned back to the client
 		the client stores the token in the local storage, cookie or whatever, to use it on every new request.
+
+
+Password for UserSeeder - Asd@12

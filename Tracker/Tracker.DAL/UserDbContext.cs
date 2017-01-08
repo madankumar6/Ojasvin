@@ -17,7 +17,7 @@
 
         public UserDbContext(DbContextOptions<UserDbContext> options) : base(options)
         {
-            //Database.EnsureCreated();
+            Database.EnsureCreated();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -32,8 +32,6 @@
             modelBuilder.Entity<IdentityUserToken<int>>(EntitiesConfiguration.ConfigureUserToken);
             modelBuilder.Entity<IdentityUserLogin<int>>(EntitiesConfiguration.ConfigureUserLogin);
             modelBuilder.Entity<IdentityRoleClaim<int>>(EntitiesConfiguration.ConfigureRoleClaim);
-
-
         }
     }
 }
